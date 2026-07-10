@@ -9,6 +9,7 @@ const repositoryVersions = {
   'libretro-thumbnails/Bandai_-_WonderSwan': 'aa3cfe8a087b33ae0864f22745f3f49827a3583e', // https://github.com/libretro-thumbnails/Bandai_-_WonderSwan/commits
   'libretro-thumbnails/Bandai_-_WonderSwan_Color': '4937a9a5c69a9fde504fe6593916ab606784af9c', // https://github.com/libretro-thumbnails/Bandai_-_WonderSwan_Color/commits
   'libretro-thumbnails/Coleco_-_ColecoVision': '17a09fab3eef20022e5f19022c7aa4dab5cef163', // https://github.com/libretro-thumbnails/Coleco_-_ColecoVision/commits
+  'libretro-thumbnails/Commodore_-_64': '11f4faab8f15f953fe734e4d2f8d04a27475b6d1', // https://github.com/libretro-thumbnails/Commodore_-_64/commits
   'libretro-thumbnails/Fairchild_-_Channel_F': 'f4463eafc549fe8dd371becc107a153f9d5e9b53', // https://github.com/libretro-thumbnails/Fairchild_-_Channel_F/commits
   'libretro-thumbnails/FBNeo_-_Arcade_Games': '7a4f51c8c1bb5cc469aa32acf7511f76a75f62ac', // https://github.com/libretro-thumbnails/FBNeo_-_Arcade_Games/commits
   'libretro-thumbnails/Handheld_Electronic_Game': 'a717495b41498c469ff4579797a6bf4e76fb766a', // https://github.com/libretro-thumbnails/Handheld_Electronic_Game/commits

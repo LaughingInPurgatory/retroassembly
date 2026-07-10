@@ -1,0 +1,22 @@
+<svg viewBox="0 0 400 220" width="400" height="220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Commodore 64 computer">
+  <g transform="translate(20 40)">
+    <path d="M6 120 L354 120 L344 24 Q343 14 331 14 L29 14 Q17 14 16 24 Z" fill="#D8CBA6"/>
+    <path d="M6 120 L354 120 L356 138 Q356 146 346 146 L14 146 Q4 146 4 138 Z" fill="#C4B591"/>
+    <rect x="30" y="22" width="300" height="10" rx="2" fill="#B8A981"/>
+    <g fill="#8E8064">
+      <rect x="34" y="40" width="286" height="9" rx="2"/>
+      <rect x="38" y="55" width="278" height="9" rx="2"/>
+      <rect x="42" y="70" width="270" height="9" rx="2"/>
+      <rect x="46" y="85" width="262" height="9" rx="2"/>
+      <rect x="86" y="100" width="184" height="9" rx="2"/>
+    </g>
+    <g>
+      <rect x="300" y="126" width="8" height="12" fill="#B33A3A"/>
+      <rect x="309" y="126" width="8" height="12" fill="#D98032"/>
+      <rect x="318" y="126" width="8" height="12" fill="#D9C132"/>
+      <rect x="327" y="126" width="8" height="12" fill="#5EA85E"/>
+      <rect x="336" y="126" width="8" height="12" fill="#4D6FBF"/>
+    </g>
+    <text x="26" y="137" fill="#6B5F45" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="1">commodore 64</text>
+  </g>
+</svg>

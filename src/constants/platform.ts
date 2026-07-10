@@ -113,6 +113,19 @@ const basePlatformMap = {
     },
     libretroName: 'Atari - Lynx',
   },
+  // The VICE cores embed the KERNAL, BASIC and character ROMs, so no bioses entry is needed.
+  c64: {
+    cores: ['vice_x64sc'],
+    displayNameI18nKey: 'platform.c64',
+    fileExtensions: ['.d64', '.d71', '.d81', '.g64', '.x64', '.t64', '.tap', '.prg', '.p00', '.crt', '.zip'],
+    info: {
+      developer: 'Commodore International',
+      manufacturer: 'Commodore International',
+      notesI18nKey: 'platform.c64Note',
+      releaseDate: '1982-08-01T00:00:00-07:00',
+    },
+    libretroName: 'Commodore - 64',
+  },
   channelf: {
     bioses: [
       { md5: 'da98f4bb3242ab80d76629021bb27585', name: 'sl31254.bin', required: true },

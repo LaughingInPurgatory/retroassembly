@@ -73,20 +73,39 @@ export function getRomLibretroThumbnail(
   return getLibretroThumbnail({ host, name, platform, type })
 }
 
+// The shared assets repository carries no artwork for these platforms, so it ships with the app instead.
+const locallyHostedAssetPlatforms = new Set(['c64'])
+
+function getLocalPlatformAsset(platform: string, name: string) {
+  return locallyHostedAssetPlatforms.has(platform) ? `/assets/platforms/${platform}/${name}.svg` : undefined
+}
+
 export function getPlatformIcon(platform: string) {
-  return getCDNUrl('arianrhodsandlot/retroassembly-assets', `platforms/icons/${platform}.png`)
+  return (
+    getLocalPlatformAsset(platform, 'icon') ||
+    getCDNUrl('arianrhodsandlot/retroassembly-assets', `platforms/icons/${platform}.png`)
+  )
 }
 
 export function getPlatformGameIcon(platform: string) {
-  return getCDNUrl('arianrhodsandlot/retroassembly-assets', `platforms/contents/${platform}.svg`)
+  return (
+    getLocalPlatformAsset(platform, 'content') ||
+    getCDNUrl('arianrhodsandlot/retroassembly-assets', `platforms/contents/${platform}.svg`)
+  )
 }
 
 export function getPlatformBanner(platform: string) {
-  return getCDNUrl('arianrhodsandlot/retroassembly-assets', `platforms/logos/${platform}.svg`)
+  return (
+    getLocalPlatformAsset(platform, 'logo') ||
+    getCDNUrl('arianrhodsandlot/retroassembly-assets', `platforms/logos/${platform}.svg`)
+  )
 }
 
 export function getPlatformDevicePhoto(platform: string) {
-  return getCDNUrl('arianrhodsandlot/retroassembly-assets', `platforms/photos/${platform}.png`)
+  return (
+    getLocalPlatformAsset(platform, 'photo') ||
+    getCDNUrl('arianrhodsandlot/retroassembly-assets', `platforms/photos/${platform}.png`)
+  )
 }
 
 export function getPlatformDeviceBackground(platform: string) {

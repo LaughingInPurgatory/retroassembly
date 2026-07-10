@@ -1,0 +1,9 @@
+<svg viewBox="0 0 420 80" width="420" height="80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Commodore 64">
+  <g fill="none" stroke="#6656C6" stroke-width="7">
+    <path d="M40 14a26 26 0 1 0 0 52"/>
+  </g>
+  <rect x="44" y="30" width="26" height="7" fill="#6656C6"/>
+  <rect x="44" y="43" width="26" height="7" fill="#6656C6"/>
+  <text x="92" y="52" fill="#6656C6" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="600" letter-spacing="1.5">commodore</text>
+  <text x="330" y="54" fill="#6656C6" font-family="'Courier New', Courier, monospace" font-size="40" font-weight="700">64</text>
+</svg>

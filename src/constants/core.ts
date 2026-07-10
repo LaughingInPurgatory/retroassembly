@@ -33,6 +33,7 @@ export const cores = {
   stella2014: { displayName: 'Stella 2014' },
   tgbdual: { displayName: 'TGB Dual' },
   vba_next: { displayName: 'VBA Next' },
+  vice_x64sc: { displayName: 'VICE x64sc' },
 }
 
 export const coreDisplayNameMap = Object.fromEntries(
