@@ -4,10 +4,11 @@ on:
   push:
     tags:
       - '*'
+  workflow_dispatch:
 
 env:
-  REGISTRY: docker.io
-  IMAGE_NAME: retroassembly
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push:
@@ -21,25 +22,30 @@ jobs:
 
       - uses: docker/setup-buildx-action@v4
 
+      # GITHUB_TOKEN is issued to the workflow automatically, so publishing to
+      # ghcr.io needs no registry secrets of its own.
       - uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ${{ vars.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=tag
             type=raw,value=unstable,enable=${{ contains(github.ref_name, 'unstable') }}
-          flavor: latest=${{ !contains(github.ref_name, 'unstable') }}
+            type=raw,value=edge,enable=${{ github.event_name == 'workflow_dispatch' }}
+            type=sha,enable=${{ github.event_name == 'workflow_dispatch' }}
+          # Only a released tag may claim `latest`; a manual build off a branch must not.
+          flavor: latest=${{ github.event_name == 'push' && !contains(github.ref_name, 'unstable') }}
 
       - uses: docker/build-push-action@v7
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
