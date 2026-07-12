@@ -121,6 +121,7 @@
   "common.role": "Role",
   "common.save": "Save",
   "common.savedAt": "Saved at",
+  "common.scan": "Scan",
   "common.scrollToTop": "Scroll to top",
   "common.search": "Search",
   "common.searchCmdK": "Search (⌘ + K)",
