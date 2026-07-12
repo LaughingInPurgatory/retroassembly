@@ -13,6 +13,7 @@ import { deleteRom } from '#@/controllers/roms/delete-rom.ts'
 import { deleteRoms } from '#@/controllers/roms/delete-roms.ts'
 import { getRomContent } from '#@/controllers/roms/get-rom-content.ts'
 import { getRom } from '#@/controllers/roms/get-rom.ts'
+import { scanRoms } from '#@/controllers/roms/scan-roms.ts'
 import { searchRoms } from '#@/controllers/roms/search-roms.ts'
 import { updateRom } from '#@/controllers/roms/update-rom.ts'
 import { getStates } from '#@/controllers/states/get-states.ts'
@@ -47,6 +48,12 @@ export const roms = new Hono()
       return c.json(rom)
     },
   )
+
+  .post('scan', async (c) => {
+    assertNotSharedLibrary(c)
+    const result = await scanRoms()
+    return c.json(result)
+  })
 
   .patch(
     ':id',

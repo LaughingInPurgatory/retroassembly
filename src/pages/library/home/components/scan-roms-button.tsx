@@ -1,0 +1,30 @@
+import { Button } from '@radix-ui/themes'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { client } from '#@/api/client.ts'
+import { useRouter } from '../../hooks/use-router.ts'
+
+// Imports files dropped directly onto the storage volume under roms/<platform>/.
+// New roms simply show up in the library after the reload; nothing else to report.
+export function ScanRomsButton() {
+  const { t } = useTranslation()
+  const { reload } = useRouter()
+  const [loading, setLoading] = useState(false)
+
+  async function handleClick() {
+    setLoading(true)
+    try {
+      await client.roms.scan.$post()
+      await reload()
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <Button disabled={loading} onClick={handleClick} variant='soft'>
+      <span className={loading ? 'icon-[mdi--loading] animate-spin' : 'icon-[mdi--folder-search-outline]'} />
+      {t('common.scan')}
+    </Button>
+  )
+}

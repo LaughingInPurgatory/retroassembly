@@ -7,6 +7,7 @@ import { UploadSelectButton } from '../platform/components/upload-select-button.
 import { GeneralSection } from './components/general-section.tsx'
 import { HomeEmpty } from './components/home-empty.tsx'
 import { JumpBackInSection } from './components/jump-back-in-section.tsx'
+import { ScanRomsButton } from './components/scan-roms-button.tsx'
 
 export function LibraryHomePage() {
   const { t } = useTranslation()
@@ -46,7 +47,12 @@ export function LibraryHomePage() {
               '?',
             ),
             roms: newAddedRoms,
-            suffix: <UploadSelectButton />,
+            suffix: (
+              <div className='flex gap-2'>
+                <ScanRomsButton />
+                <UploadSelectButton />
+              </div>
+            ),
             title: t('common.newAdded'),
           },
         ].map((props) => (
