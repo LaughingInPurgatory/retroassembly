@@ -3,11 +3,11 @@ import { generatePath, useLoaderData } from 'react-router'
 import { routes } from '#@/pages/routes.ts'
 import type { loader } from '#@/pages/routes/library-home.tsx'
 import LibraryLayout from '../components/library-layout/library-layout.tsx'
+import { ScanRomsButton } from '../components/scan-roms-button.tsx'
 import { UploadSelectButton } from '../platform/components/upload-select-button.tsx'
 import { GeneralSection } from './components/general-section.tsx'
 import { HomeEmpty } from './components/home-empty.tsx'
 import { JumpBackInSection } from './components/jump-back-in-section.tsx'
-import { ScanRomsButton } from './components/scan-roms-button.tsx'
 
 export function LibraryHomePage() {
   const { t } = useTranslation()

@@ -1,7 +1,7 @@
 import { Trans, useTranslation } from 'react-i18next'
 import { metadata } from '#@/constants/metadata.ts'
+import { ScanRomsButton } from '../../components/scan-roms-button.tsx'
 import { UploadSelectButton } from '../../platform/components/upload-select-button.tsx'
-import { ScanRomsButton } from './scan-roms-button.tsx'
 
 export function HomeEmpty() {
   const { t } = useTranslation()
