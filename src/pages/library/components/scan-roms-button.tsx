@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { client } from '#@/api/client.ts'
 import { libraryModeEnum } from '#@/databases/schema.ts'
 import { useGlobalLoaderData } from '#@/pages/hooks/use-global-loader-data.ts'
-import { useRouter } from '../../hooks/use-router.ts'
+import { useRouter } from '../hooks/use-router.ts'
 
 // Imports files dropped directly onto the storage volume under roms/<platform>/.
 // New roms simply show up in the library after the reload; nothing else to report.
