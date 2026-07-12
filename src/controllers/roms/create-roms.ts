@@ -1,12 +1,12 @@
 import path from 'node:path'
-import { and, eq, type InferInsertModel } from 'drizzle-orm'
+import { and, asc, eq, type InferInsertModel } from 'drizzle-orm'
 import { isNotNil, pickBy, omit } from 'es-toolkit'
 import { getContext } from 'hono/context-storage'
 import { HTTPException } from 'hono/http-exception'
 import { DateTime } from 'luxon'
 import { getRunTimeEnv } from '#@/constants/env.ts'
 import { platformMap, type PlatformName } from '#@/constants/platform.ts'
-import { libraryModeEnum, romTable, statusEnum } from '#@/databases/schema.ts'
+import { libraryModeEnum, romTable, statusEnum, userTable } from '#@/databases/schema.ts'
 import { getFilePartialDigest, getSafeFileName } from '#@/utils/server/file.ts'
 import { msleuth } from '#@/utils/server/msleuth.ts'
 import { countRoms } from './count-roms.ts'
@@ -67,6 +67,21 @@ export async function createRom({ file, md5, platform }: { file: File; md5?: str
     throw new HTTPException(403, { message: t('error.sharedLibraryReadOnly') })
   }
 
+  // The rom library is shared by all accounts (see effectiveLibraryUserId in globals.ts), so
+  // only the super user - the same account get-all-users/delete-user/update-user already treat
+  // as the admin - may add to it.
+  // ponytail: this check is now duplicated 5x (get-all-users, delete-user, update-user, here,
+  // scan-roms); extract a shared helper if it needs to grow another case.
+  const [superUser] = await db.library
+    .select()
+    .from(userTable)
+    .where(eq(userTable.status, statusEnum.normal))
+    .orderBy(asc(userTable.createdAt))
+    .limit(1)
+  if (!superUser || superUser.id !== currentUser.id) {
+    throw new HTTPException(403, { message: 'Forbidden' })
+  }
+
   const cutoffDate = DateTime.fromISO('2026-01-01')
   let maxRomCount = Math.trunc(Number(env.RETROASSEMBLY_RUN_TIME_MAX_ROM_COUNT)) || Infinity
   if (currentUser && 'created_at' in currentUser && typeof currentUser.created_at === 'string') {
@@ -110,12 +125,12 @@ export async function createRom({ file, md5, platform }: { file: File; md5?: str
 
   const { launchbox, libretro } = gameInfo
 
-  // Store the file under its original name. The name is scoped to the uploader because, unlike a
-  // content digest, it does not identify the file's contents: two accounts can upload different
-  // ROMs that share a name, and re-uploading a name must replace whatever was stored under it.
+  // Store the file under its original name in a single shared roms/<platform>/ folder - not
+  // scoped per user, since only the super user can ever reach this point and the whole library
+  // is shared. Re-uploading a name replaces whatever was stored under it.
   const digest = await getFilePartialDigest(file)
   const fileName = getSafeFileName(file.name, `${digest}${ext}`)
-  const fileId = path.join('roms', currentUser.id, platform, fileName)
+  const fileId = path.join('roms', platform, fileName)
   await storage.put(fileId, file)
 
   const romData: InferInsertModel<typeof romTable> = {
