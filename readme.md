@@ -98,6 +98,8 @@ services:
 
 The `/app/data` volume holds the SQLite database and your ROM library, so keep it if you want your library to survive a container rebuild. ROM files live under `/app/data/roms/<platform>/`, one folder per platform (`nes`, `snes`, `c64`, …) — the platform's key is the same slug shown in its URL when browsing the library, e.g. `/library/platform/nes`. If you already have a ROM collection organized this way, drop it straight into that folder on the host and click **Scan** in the app to import it, instead of uploading everything through the browser.
 
+BIOS / firmware files use the same idea: `/app/data/bioses/<platform>/<filename>` with the **original filename** (e.g. `bioses/fds/disksys.rom`). Files already present there are detected automatically when preferences load — no need to re-upload if the name matches what the platform expects.
+
 Only the first account you register (the "super user") can upload or scan ROMs. Add further accounts from **Settings → General → Accounts** with **Shared Library** checked to give family or friends read-only access to the same collection — they can play and save progress, but not add, delete, or edit ROMs.
 
 Images are published on tag pushes. `latest` always points at the most recent release tag; an `edge` tag is published by manually dispatching the workflow. Upstream's images remain available on [Docker Hub](https://hub.docker.com/r/arianrhodsandlot/retroassembly#quick-start).

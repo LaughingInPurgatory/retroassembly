@@ -145,6 +145,8 @@ Add key to all locale files in `src/locales/`, use `t('key')` in components.
 
 **ROM storage (fork)**: Shared `roms/<platform>/<filename>` (not per-user hash paths). Super user (first account) only for upload/scan; optional shared-library accounts are read-only for ROMs.
 
+**BIOS storage (fork)**: Shared `bioses/<platform>/<original-filename>` (not content-hash names). `getPreference` merges any on-disk files whose names match the platform's expected BIOS list (case-insensitive).
+
 ## Key Files
 
 - `src/constants/env.ts` — Runtime environment detection

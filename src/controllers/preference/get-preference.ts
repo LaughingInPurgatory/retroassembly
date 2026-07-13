@@ -3,6 +3,7 @@ import { getContext } from 'hono/context-storage'
 import { platformMap } from '#@/constants/platform.ts'
 import { resolveUserPreference } from '#@/constants/preference.ts'
 import { userPreferenceTable } from '#@/databases/schema.ts'
+import { mergeDiscoveredBioses } from './discover-bioses.ts'
 
 export async function getPreference() {
   const { currentUser, db } = getContext().var
@@ -17,5 +18,6 @@ export async function getPreference() {
     userPreference.ui.platforms = userPreference.ui.platforms.filter((platform) => platform in platformMap)
   }
 
-  return resolveUserPreference(userPreference)
+  const preference = resolveUserPreference(userPreference)
+  return await mergeDiscoveredBioses(preference)
 }

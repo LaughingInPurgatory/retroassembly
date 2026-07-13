@@ -61,5 +61,34 @@ export function createStorage() {
       const { default: fs } = await import('fs-extra')
       await fs.remove(filePath)
     },
+
+    async list(options?: { prefix?: string }) {
+      const prefix = (options?.prefix || '').replaceAll('\\', '/').replace(/\/+$/u, '')
+      const directory = resolveStoragePath(storageDirectory, prefix || '.')
+      const { default: fs } = await import('fs-extra')
+      try {
+        const entries = await fs.readdir(directory, { withFileTypes: true })
+        const keys = entries
+          .filter((entry) => entry.isFile())
+          .map((entry) => (prefix ? path.posix.join(prefix, entry.name) : entry.name))
+        return { objects: keys.map((key) => ({ key })) }
+      } catch {
+        return { objects: [] as { key: string }[] }
+      }
+    },
   }
+}
+
+/** List object keys under a storage prefix (node directory or R2). */
+export async function listStorageKeys(prefix: string) {
+  const storage = createStorage()
+  if (typeof storage.list !== 'function') {
+    return [] as string[]
+  }
+  const normalized = prefix.replaceAll('\\', '/').replace(/\/+$/u, '')
+  const result = await storage.list({ prefix: `${normalized}/` })
+  if (result && typeof result === 'object' && 'objects' in result && Array.isArray(result.objects)) {
+    return result.objects.map((object: { key: string }) => object.key)
+  }
+  return [] as string[]
 }
