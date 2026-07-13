@@ -23,6 +23,7 @@ import { getCDNUrl } from '#@/utils/isomorphic/cdn.ts'
 import { getGlobalCSSVars } from '#@/utils/isomorphic/misc.ts'
 import { usePreference } from '../../../hooks/use-preference.ts'
 import { useJaguarNumpad } from './use-jaguar-numpad.ts'
+import { useKeyboardCoreJumpUp } from './use-keyboard-core-jump-up.ts'
 
 type NostalgistOption = Parameters<typeof Nostalgist.prepare>[0]
 type RetroarchConfig = Partial<NostalgistOption['retroarchConfig']>
@@ -46,6 +47,7 @@ const keyboardCores = new Set([
 ])
 
 // Unbind keyboard→joypad/hotkey maps so letters and F-keys reach the core. Gamepads still work.
+// X (button 3) is nulled as a face button so it can be mirrored onto Up for jump-style play.
 const keyboardCoreInputConfig: RetroarchConfig = {
   // @ts-expect-error not listed in nostalgist's RetroArch config types yet
   input_auto_game_focus: 'on',
@@ -65,6 +67,7 @@ const keyboardCoreInputConfig: RetroarchConfig = {
   input_player1_start: 'nul',
   input_player1_up: 'nul',
   input_player1_x: 'nul',
+  input_player1_x_btn: 'nul',
   input_player1_y: 'nul',
   input_rewind: 'nul',
 }
@@ -154,6 +157,10 @@ export function useEmulator() {
   // Jaguar keypad lives on RETRO_DEVICE_KEYBOARD (0-9, -, =). Map PC numpad onto those
   // keys while this core is running: numpad digits → 0-9, * → *, - → #.
   useJaguarNumpad(launched && core === 'virtualjaguar')
+
+  // VICE / Fuse / Cap32: also treat gamepad button 3 (X) as Up for single-fire joysticks.
+  const upButtonIndex = Math.trunc(Number(gamepadMapping.input_player1_up_btn ?? '12'))
+  useKeyboardCoreJumpUp(launched && isKeyboardCore(core), upButtonIndex)
 
   const isPreparing = !rom || isValidating
 
