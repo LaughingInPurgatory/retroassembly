@@ -5,6 +5,7 @@ const repositoryVersions = {
   'libretro-thumbnails/Atari_-_2600': '13f3b4c2393c79f8f03850609067fe9db5da40a1', // https://github.com/libretro-thumbnails/Atari_-_2600/commits
   'libretro-thumbnails/Atari_-_5200': '30b60c8a3bf2eff5c977ca09e909b9ef06a8c5c0', // https://github.com/libretro-thumbnails/Atari_-_5200/commits
   'libretro-thumbnails/Atari_-_7800': 'c8190373b1d1c1fb7a82c351fbca880fab9d1993', // https://github.com/libretro-thumbnails/Atari_-_7800/commits
+  'libretro-thumbnails/Atari_-_Jaguar': '2c8767a7de7422fc42ee1e2e2ecb9baf0eadc27e', // https://github.com/libretro-thumbnails/Atari_-_Jaguar/commits
   'libretro-thumbnails/Atari_-_Lynx': '1f80ecfa4bf824af5be14af736e61c8f41fd21f5', // https://github.com/libretro-thumbnails/Atari_-_Lynx/commits
   'libretro-thumbnails/Bandai_-_WonderSwan': 'aa3cfe8a087b33ae0864f22745f3f49827a3583e', // https://github.com/libretro-thumbnails/Bandai_-_WonderSwan/commits
   'libretro-thumbnails/Bandai_-_WonderSwan_Color': '4937a9a5c69a9fde504fe6593916ab606784af9c', // https://github.com/libretro-thumbnails/Bandai_-_WonderSwan_Color/commits

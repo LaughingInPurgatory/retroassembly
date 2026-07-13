@@ -22,6 +22,7 @@ import type { loader } from '#@/pages/routes/library-platform-rom.tsx'
 import { getCDNUrl } from '#@/utils/isomorphic/cdn.ts'
 import { getGlobalCSSVars } from '#@/utils/isomorphic/misc.ts'
 import { usePreference } from '../../../hooks/use-preference.ts'
+import { useJaguarNumpad } from './use-jaguar-numpad.ts'
 
 type NostalgistOption = Parameters<typeof Nostalgist.prepare>[0]
 type RetroarchConfig = Partial<NostalgistOption['retroarchConfig']>
@@ -100,6 +101,10 @@ export function useEmulator() {
     mutate: prepare,
   } = useSWRImmutable(options, () => Nostalgist.prepare(options))
   globalThis.emulator = emulator
+
+  // Jaguar keypad lives on RETRO_DEVICE_KEYBOARD (0-9, -, =). Map PC numpad onto those
+  // keys while this core is running: numpad digits → 0-9, * → *, - → #.
+  useJaguarNumpad(launched && core === 'virtualjaguar')
 
   const isPreparing = !rom || isValidating
 

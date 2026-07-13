@@ -20,6 +20,7 @@ import { quicknesOptions } from './quicknes.ts'
 import { snes9xOptions } from './snes9x.ts'
 import { stella2014Options } from './stella2014.ts'
 import { vbaNextOptions } from './vba-next.ts'
+import { virtualjaguarOptions } from './virtualjaguar.ts'
 
 export const coreOptionsMap = {
   a5200: a5200Options,
@@ -44,4 +45,5 @@ export const coreOptionsMap = {
   snes9x: snes9xOptions,
   stella2014: stella2014Options,
   vba_next: vbaNextOptions,
+  virtualjaguar: virtualjaguarOptions,
 }

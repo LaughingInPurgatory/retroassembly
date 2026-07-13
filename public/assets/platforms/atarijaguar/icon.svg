@@ -1,0 +1,5 @@
+<svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Atari Jaguar">
+  <rect width="64" height="64" rx="10" fill="#111111"/>
+  <rect x="3" y="3" width="58" height="58" rx="8" fill="none" stroke="#E31C25" stroke-width="2"/>
+  <text x="32" y="40" fill="#E31C25" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" letter-spacing="1">JAG</text>
+</svg>

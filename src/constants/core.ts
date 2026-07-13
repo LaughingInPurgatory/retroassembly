@@ -40,6 +40,7 @@ export const cores = {
   vice_xplus4: { displayName: 'VICE xplus4' },
   vice_xscpu64: { displayName: 'VICE xscpu64' },
   vice_xvic: { displayName: 'VICE xvic' },
+  virtualjaguar: { displayName: 'Virtual Jaguar' },
 }
 
 export const coreDisplayNameMap = Object.fromEntries(

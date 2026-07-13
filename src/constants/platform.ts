@@ -100,6 +100,20 @@ const basePlatformMap = {
     },
     libretroName: 'Atari - 7800',
   },
+  // Virtual Jaguar ships an HLE BIOS path, so a real BIOS dump is not required for most titles.
+  // The emscripten core is not in the shared retroarch-emscripten-build set; we host it under public/cores/.
+  atarijaguar: {
+    cores: ['virtualjaguar'],
+    displayNameI18nKey: 'platform.atariJaguar',
+    fileExtensions: ['.j64', '.jag', '.rom', '.abs', '.cof', '.bin', '.prg', '.zip'],
+    info: {
+      developer: 'Atari Corporation',
+      manufacturer: 'Atari Corporation',
+      notesI18nKey: 'platform.atariJaguarNote',
+      releaseDate: '1993-11-23T00:00:00-08:00',
+    },
+    libretroName: 'Atari - Jaguar',
+  },
   atarilynx: {
     bioses: [{ md5: 'fcd403db69f54290b51035d82f835e7b', name: 'lynxboot.img', required: true }],
     cores: ['mednafen_lynx'],

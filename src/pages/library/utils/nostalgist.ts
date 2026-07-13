@@ -6,6 +6,11 @@ import { cdnHost } from '#@/utils/isomorphic/cdn.ts'
 const extractCache = new Map<string, ReturnType<typeof extractCore>>()
 
 function getCoreCDNUrl(core: string) {
+  // virtualjaguar is missing from the shared retroarch-emscripten-build set used for every other
+  // core here, so the fork ships the official libretro emscripten nightly build under public/cores/.
+  if (core === 'virtualjaguar') {
+    return '/cores/virtualjaguar_libretro.zip'
+  }
   const externalCores = ['a5200', 'prosystem', 'stella2014', 'mupen64plus_next']
   const segments = externalCores.includes(core)
     ? [

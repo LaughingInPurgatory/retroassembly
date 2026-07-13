@@ -74,7 +74,7 @@ export function getRomLibretroThumbnail(
 }
 
 // The shared assets repository carries no artwork for these platforms, so it ships with the app instead.
-const locallyHostedAssetPlatforms = new Set(['c128', 'c64', 'pet', 'plus4', 'vic20'])
+const locallyHostedAssetPlatforms = new Set(['atarijaguar', 'c128', 'c64', 'pet', 'plus4', 'vic20'])
 
 function getLocalPlatformAsset(platform: string, name: string) {
   return locallyHostedAssetPlatforms.has(platform) ? `/assets/platforms/${platform}/${name}.svg` : undefined

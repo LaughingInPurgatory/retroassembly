@@ -258,6 +258,8 @@
   "platform.atari7800Note": "雅达利7800专业系统，通常称为雅达利7800，是由雅达利公司开发和发行的第三代（1983-2003）游戏机。它于1986年5月在北美发行，零售价为79.95美元。该游戏机后来在欧洲（1987年）发行。7800被认为是最早的向后兼容游戏机之一，因为它可以在不使用额外模块的情况下玩雅达利2600游戏。该游戏机于1992年1月1日停产。",
   "platform.atariLynx": "雅达利Lynx",
   "platform.atariLynxNote": "雅达利Lynx，通常简称为Lynx，是由Epyx公司合作开发并由雅达利公司发行的第四代（1987-2004）掌上游戏机。它于1989年9月在北美发行，零售价为149.95美元。该掌机还在欧洲（1990年）和日本（1990年）发行。Lynx是世界上第一款配备彩色LCD屏幕的掌上电子游戏机。该游戏机于1996年初停产，可能是在公司于1996年4月8日出售时。",
+  "platform.atariJaguar": "Atari Jaguar",
+  "platform.atariJaguarNote": "The Atari Jaguar is a fifth-generation home video game console developed by Atari Corporation and released in North America on November 23, 1993 at a retail price of $249.99. Marketed as the world's first 64-bit console, it used a multi-processor design including the Tom and Jerry custom chips alongside a Motorola 68000. Its library is relatively small but includes well-known titles such as Tempest 2000 and Alien vs Predator. Production ended in 1996.",
   "platform.c128": "Commodore 128",
   "platform.c128Note": "The Commodore 128, released in January 1985, was the final 8-bit home computer Commodore brought to market. It doubled the Commodore 64's memory to 128 kilobytes and added an 80-column display mode, a numeric keypad and a faster 1571 disk drive. Unusually, it shipped with three modes: a native C128 mode, a CP/M mode driven by a second Zilog Z80 processor, and a near-perfect C64 mode for backward compatibility with the older machine's enormous software library. It was discontinued in 1989.",
   "platform.c64": "Commodore 64",

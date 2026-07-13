@@ -114,6 +114,7 @@ RetroAssembly aims to support a wide range of vintage gaming systems. Emulation 
 | Atari 2600                              | `stella2014`                                       |
 | Atari 5200                              | `a5200`                                            |
 | Atari 7800                              | `prosystem`                                        |
+| Atari Jaguar                            | `virtualjaguar`                                    |
 | Atari Lynx                              | `mednafen_lynx`                                    |
 | Channel F                               | `freechaf`                                         |
 | ColecoVision                            | `gearcoleco`                                       |
@@ -154,6 +155,7 @@ The Commodore machines are home computers rather than consoles, and are driven b
 - **Only the super user (the first registered account) may upload or scan.** Since the ROM folder above is now shared rather than per-user, only one account is allowed to write to it - the same "super user" concept the account-management settings already used to decide who could create or delete other accounts. Other accounts can be given read-only access to the same library; see [Self-Host with Docker](#option-2-self-host-with-docker) for how.
 - **A Scan button imports ROMs dropped directly onto the storage volume**, for bulk-loading an existing collection without uploading file by file through the browser. It appears next to Add on the library homepage and scans every platform folder under `roms/`.
 - **Commodore support.** The Commodore 64, 128, VIC-20, Plus/4 (and 16) and PET are supported through the VICE cores. No BIOS files are required; the system ROMs are embedded in the cores.
+- **Atari Jaguar via Virtual Jaguar.** Upstream's shared emscripten core pack does not include `virtualjaguar`, so this fork ships the official libretro emscripten build under `public/cores/` and loads it locally. Most titles boot with the core's HLE BIOS; no BIOS dump is required.
 - **Images publish to the GitHub Container Registry** instead of Docker Hub. See [Self-Host with Docker](#option-2-self-host-with-docker).
 
 ## Contributing
