@@ -246,8 +246,6 @@
   "nav.library": "游戏库",
   "nav.libraryLower": "游戏库",
   "nav.settings": "设置",
-  "platform.3do": "3DO",
-  "platform.3doNote": "The 3DO Interactive Multiplayer is a fifth-generation home video game console developed by The 3DO Company and manufactured by partners including Panasonic, GoldStar and Sanyo. It was released in North America on October 4, 1993. Emulation uses the Opera core and requires a system BIOS (any one of panafz1.bin, panafz10.bin, goldstar.bin, sanyotry.bin, etc.) under Settings → Emulating → BIOS. Without a BIOS the emulator shows only a black screen. Prefer CHD or CUE/BIN disc images.",
   "platform.n64": "Nintendo 64",
   "platform.n64Note": "以其64位中央处理器命名，于1996年6月在日本、1996年9月在北美、1997年3月在欧洲和澳大利亚、1997年9月在法国、1997年12月在巴西发行。\n作为第五代游戏机的一部分，N64主要与PlayStation和世嘉土星竞争。Nintendo 64首发时推出了三款游戏：全球发行的《超级马力欧64》和《飞行俱乐部64》，以及仅在日本发行的《最強羽生将棋》。\n虽然N64于2001年11月被基于MiniDVD的GameCube取代，但N64主机一直销售到2003年底系统停产为止。",
   "platform.arcade": "街机",
@@ -401,6 +399,6 @@
   "platform.dreamcast": "Dreamcast",
   "platform.dreamcastNote": "The Sega Dreamcast is a sixth-generation console (1998–2001). This fork ships a self-built RetroArch Emscripten Flycast core (SH4 interpreter, WebGL2). Expect low FPS on heavy 3D titles. Upload dc_boot.bin (and optionally dc_flash.bin) under Settings → Emulating → BIOS (stored as system/dc/). Prefer CHD disc images when possible.",
   "platform.gamecube": "GameCube",
-  "platform.gamecubeNote": "The Nintendo GameCube is a sixth-generation console (2001). This fork ships an experimental self-built Dolphin WASM core (ENABLE_GENERIC interpreter, single-core). Blank screens were common with dual-core/threading; dual core is disabled by default. Expect very low FPS. Optional IPL.bin and Dolphin Sys files go under system/dolphin-emu/. Prefer GCZ/RVZ/ISO. Not an official Dolphin or Libretro release.",
+  "platform.gamecubeNote": "The Nintendo GameCube is a sixth-generation console (2001). This fork ships an experimental self-built Dolphin WASM core (ENABLE_GENERIC interpreter, single-core, no pthreads). Dolphin Sys files are bundled and mounted under system/dolphin-emu/Sys/ on launch. Optional IPL.bin can be uploaded under Settings → Emulating → BIOS (copied to Sys/GC/USA|JAP|EUR/). Prefer GCZ/RVZ/ISO. Expect very low FPS. Not an official Dolphin or Libretro release.",
   "bios.requiredAnyOf": "required (any one)"
 }

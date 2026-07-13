@@ -75,7 +75,6 @@ export function getRomLibretroThumbnail(
 
 // The shared assets repository carries no artwork for these platforms, so it ships with the app instead.
 const locallyHostedAssetPlatforms = new Set([
-  '3do',
   'atarijaguar',
   'c128',
   'c64',

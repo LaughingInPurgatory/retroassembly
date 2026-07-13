@@ -26,7 +26,6 @@ export const cores = {
   mupen64plus_next: { displayName: 'Mupen64Plus-Next' },
   nestopia: { displayName: 'Nestopia' },
   o2em: { displayName: 'O2EM' },
-  opera: { displayName: 'Opera' },
   pcsx_rearmed: { displayName: 'PCSX ReARMed' },
   picodrive: { displayName: 'PicoDrive' },
   prosystem: { displayName: 'ProSystem' },

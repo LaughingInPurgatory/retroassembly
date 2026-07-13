@@ -29,7 +29,7 @@ type RetroarchConfig = Partial<NostalgistOption['retroarchConfig']>
 
 // Must match Nostalgist's EmulatorFileSystem.systemDirectory. If system_directory is
 // empty, RetroArch falls back to the content directory and never sees uploaded BIOS files
-// (Opera/3DO, Flycast, etc. then black-screen).
+// (Flycast, etc. then black-screen).
 const retroarchSystemDirectory = '/home/web_user/retroarch/userdata/system'
 
 const defaultRetroarchConfig: RetroarchConfig = {
@@ -73,21 +73,12 @@ export function useEmulator() {
     platformShader === 'inherit' ? preference.emulator.shader : (platformShader ?? preference.emulator.shader)
 
   const romObject = useMemo(() => ({ fileContent: romUrl, fileName: rom?.fileName }), [rom, romUrl])
-  const bios = preference.emulator.platform[rom.platform].bioses.map(({ fileId, fileName }) => {
-    let biosFileName = fileName
-    if (!fileName.includes('/')) {
-      if (core === 'flycast') {
-        biosFileName = `dc/${fileName}`
-      } else if (core === 'dolphin') {
-        biosFileName = `dolphin-emu/${fileName}`
-      }
-    }
-    return {
-      fileContent: getFileUrl(fileId),
-      // Flycast expects BIOS under system/dc/; Dolphin under system/dolphin-emu/
-      fileName: biosFileName,
-    }
-  })
+  // Nostalgist keeps only the basename of bios fileName; nostalgist.ts beforeLaunch
+  // relocates them (Flycast → system/dc/, Dolphin IPL → system/dolphin-emu/Sys/GC/<region>/).
+  const bios = (preference.emulator.platform[rom.platform]?.bioses || []).map(({ fileId, fileName }) => ({
+    fileContent: getFileUrl(fileId),
+    fileName,
+  }))
   const options: NostalgistOption = useMemo(
     () => ({
       bios,

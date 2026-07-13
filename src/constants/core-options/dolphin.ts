@@ -16,6 +16,18 @@ export const dolphinOptions: CoreOption[] = [
     title: 'Dual Core Mode',
   },
   {
+    defaultOption: 'enabled',
+    name: 'dolphin_skip_gc_bios',
+    options: ['disabled', 'enabled'],
+    title: 'Skip GameCube BIOS',
+  },
+  {
+    defaultOption: 'enabled',
+    name: 'dolphin_dsp_hle',
+    options: ['disabled', 'enabled'],
+    title: 'DSP HLE',
+  },
+  {
     defaultOption: 'Hardware',
     name: 'dolphin_renderer',
     options: ['Hardware'],
@@ -26,6 +38,12 @@ export const dolphinOptions: CoreOption[] = [
     name: 'dolphin_efb_scale',
     options: ['1', '2', '3', '4'],
     title: 'Internal Resolution',
+  },
+  {
+    defaultOption: 'disabled',
+    name: 'dolphin_wait_for_shaders',
+    options: ['disabled', 'enabled'],
+    title: 'Wait for Shaders',
   },
   {
     defaultOption: 'disabled',

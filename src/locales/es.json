@@ -246,8 +246,6 @@
   "nav.library": "Biblioteca",
   "nav.libraryLower": "biblioteca",
   "nav.settings": "Configuración",
-  "platform.3do": "3DO",
-  "platform.3doNote": "The 3DO Interactive Multiplayer is a fifth-generation home video game console developed by The 3DO Company and manufactured by partners including Panasonic, GoldStar and Sanyo. It was released in North America on October 4, 1993. Emulation uses the Opera core and requires a system BIOS (any one of panafz1.bin, panafz10.bin, goldstar.bin, sanyotry.bin, etc.) under Settings → Emulating → BIOS. Without a BIOS the emulator shows only a black screen. Prefer CHD or CUE/BIN disc images.",
   "platform.n64": "Nintendo 64",
   "platform.n64Note": "Nombrada por su procesador central de 64 bits, fue lanzada en junio de 1996 en Japón, septiembre de 1996 en Norteamérica, marzo de 1997 en Europa y Australia, septiembre de 1997 en Francia y diciembre de 1997 en Brasil.\nComo parte de la quinta generación de consolas, la N64 compitió principalmente con la PlayStation y la Sega Saturn. La Nintendo 64 se lanzó con tres juegos: Super Mario 64 y Pilotwings 64, lanzados mundialmente; y Saikyo Habu Shogi, lanzado solo en Japón.\nAunque la N64 fue sucedida por la GameCube basada en MiniDVD en noviembre de 2001, las consolas N64 siguieron disponibles hasta que el sistema fue retirado a finales de 2003.",
   "platform.arcade": "Arcade",
@@ -401,6 +399,6 @@
   "platform.dreamcast": "Dreamcast",
   "platform.dreamcastNote": "The Sega Dreamcast is a sixth-generation console (1998–2001). This fork ships a self-built RetroArch Emscripten Flycast core (SH4 interpreter, WebGL2). Expect low FPS on heavy 3D titles. Upload dc_boot.bin (and optionally dc_flash.bin) under Settings → Emulating → BIOS (stored as system/dc/). Prefer CHD disc images when possible.",
   "platform.gamecube": "GameCube",
-  "platform.gamecubeNote": "The Nintendo GameCube is a sixth-generation console (2001). This fork ships an experimental self-built Dolphin WASM core (ENABLE_GENERIC interpreter, single-core). Blank screens were common with dual-core/threading; dual core is disabled by default. Expect very low FPS. Optional IPL.bin and Dolphin Sys files go under system/dolphin-emu/. Prefer GCZ/RVZ/ISO. Not an official Dolphin or Libretro release.",
+  "platform.gamecubeNote": "The Nintendo GameCube is a sixth-generation console (2001). This fork ships an experimental self-built Dolphin WASM core (ENABLE_GENERIC interpreter, single-core, no pthreads). Dolphin Sys files are bundled and mounted under system/dolphin-emu/Sys/ on launch. Optional IPL.bin can be uploaded under Settings → Emulating → BIOS (copied to Sys/GC/USA|JAP|EUR/). Prefer GCZ/RVZ/ISO. Expect very low FPS. Not an official Dolphin or Libretro release.",
   "bios.requiredAnyOf": "required (any one)"
 }

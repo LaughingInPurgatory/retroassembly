@@ -39,7 +39,6 @@ const repositoryVersions = {
   'libretro-thumbnails/Sinclair_-_ZX_Spectrum': '288fefd65b7113b172ad47d9333ba76e590ed357', // https://github.com/libretro-thumbnails/Sinclair_-_ZX_Spectrum/commits
   'libretro-thumbnails/SNK_-_Neo_Geo_Pocket': '3932af2130b55ae1d666632c79fc99515ed5438c', // https://github.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/commits
   'libretro-thumbnails/SNK_-_Neo_Geo_Pocket_Color': '2b397b7b0a7e0056cfe787599578ddf8724f1859', // https://github.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket_Color/commits
-  'libretro-thumbnails/The_3DO_Company_-_3DO': '8f64dce089a2f33e34d29b2215cfce0932800619', // https://github.com/libretro-thumbnails/The_3DO_Company_-_3DO/commits
   'libretro/docs': '35b22b41444b7d547d7f239669332c634acb455b', // https://github.com/libretro/docs/commits
   'libretro/retroarch-assets': '2d24ef2972a709f870cc3f73853158fa2376f37d', // https://github.com/libretro/retroarch-assets/commits
   'Mattersons/es-theme-neutral': 'c9b38e7265d680d3da68e96df1bc2ed1cfefb79f', // https://github.com/Mattersons/es-theme-neutral/commits

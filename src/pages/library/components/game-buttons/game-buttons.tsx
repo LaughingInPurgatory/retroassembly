@@ -74,14 +74,22 @@ export function GameButtons() {
   }
 
   if (!isPreparing && error) {
+    const detail = error instanceof Error ? error.message : String(error)
     return (
-      <div className='flex h-16 w-full items-center justify-center gap-2 rounded bg-(--accent-3) lg:w-80'>
-        <span className='icon-[mdi--warning-decagram]' />
-        <span className='text-sm opacity-60'>{t('error.failedToLoadEmulator')}</span>
-        <Button onClick={handleClickRetry} size='1' type='button'>
-          <span className='icon-[mdi--reload]' />
-          {t('common.retry')}
-        </Button>
+      <div className='flex min-h-16 w-full flex-col items-center justify-center gap-1 rounded bg-(--accent-3) px-3 py-2 lg:w-80'>
+        <div className='flex items-center gap-2'>
+          <span className='icon-[mdi--warning-decagram]' />
+          <span className='text-sm opacity-60'>{t('error.failedToLoadEmulator')}</span>
+          <Button onClick={handleClickRetry} size='1' type='button'>
+            <span className='icon-[mdi--reload]' />
+            {t('common.retry')}
+          </Button>
+        </div>
+        {detail ? (
+          <span className='max-w-full truncate text-xs opacity-50' title={detail}>
+            {detail}
+          </span>
+        ) : null}
       </div>
     )
   }

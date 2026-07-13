@@ -129,9 +129,12 @@ export const defaultPreference: ResolvedPreference = {
       },
       dolphin: {
         dolphin_cpu_core: '5',
+        dolphin_dsp_hle: 'enabled',
         dolphin_efb_scale: '1',
         dolphin_main_cpu_thread: 'disabled',
         dolphin_renderer: 'Hardware',
+        dolphin_skip_gc_bios: 'enabled',
+        dolphin_wait_for_shaders: 'disabled',
         dolphin_widescreen_hack: 'disabled',
       },
       fceumm: {
@@ -141,7 +144,8 @@ export const defaultPreference: ResolvedPreference = {
         reicast_alpha_sorting: 'per-strip (fast, least accurate)',
         reicast_boot_to_bios: 'disabled',
         reicast_frame_skipping: 'enabled',
-        reicast_hle_bios: 'disabled',
+        // HLE as safety net if real BIOS is missing or not under system/dc/
+        reicast_hle_bios: 'enabled',
         reicast_internal_resolution: '640x480',
         reicast_threaded_rendering: 'disabled',
       },

@@ -17,7 +17,6 @@ import { mednafenWswanOptions } from './mednafen-wswan.ts'
 import { mgbaOptions } from './mgba.ts'
 import { mupen64plusNextOptions } from './mupen64plus-next.ts'
 import { nestopiaOptions } from './nestopia.ts'
-import { operaOptions } from './opera.ts'
 import { pcsxRearmedOptions } from './pcsx-rearmed.ts'
 import { picodriveOptions } from './picodrive.ts'
 import { prosystemOptions } from './prosystem.ts'
@@ -47,7 +46,6 @@ export const coreOptionsMap = {
   mgba: mgbaOptions,
   mupen64plus_next: mupen64plusNextOptions,
   nestopia: nestopiaOptions,
-  opera: operaOptions,
   pcsx_rearmed: pcsxRearmedOptions,
   picodrive: picodriveOptions,
   prosystem: prosystemOptions,

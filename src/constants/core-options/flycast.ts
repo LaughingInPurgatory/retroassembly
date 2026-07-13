@@ -3,7 +3,7 @@ import type { CoreOption } from './types.d.ts'
 // Tuned defaults for the experimental WASM interpreter build (nasomers/flycast-wasm).
 export const flycastOptions: CoreOption[] = [
   {
-    defaultOption: 'disabled',
+    defaultOption: 'enabled',
     name: 'reicast_hle_bios',
     options: ['disabled', 'enabled'],
     title: 'HLE BIOS',

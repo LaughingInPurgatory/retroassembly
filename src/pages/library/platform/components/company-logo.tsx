@@ -5,7 +5,6 @@ import { getCDNUrl } from '#@/utils/isomorphic/cdn.ts'
 
 const knownCompanyMap = new Map(
   Object.entries({
-    '3do': '3do.svg',
     atari: 'atari.png',
     atlus: 'atlus.svg',
     banpresto: 'banpresto.svg',
