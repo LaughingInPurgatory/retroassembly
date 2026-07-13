@@ -1,6 +1,7 @@
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { getContext } from 'hono/context-storage'
-import { launchRecordTable, romTable } from '#@/databases/schema.ts'
+import { HTTPException } from 'hono/http-exception'
+import { launchRecordTable, romTable, statusEnum } from '#@/databases/schema.ts'
 
 interface CreateRomParams {
   core: string
@@ -8,11 +9,23 @@ interface CreateRomParams {
 }
 
 export async function createLaunchRecord(params: CreateRomParams) {
-  const { currentUser, db } = getContext().var
+  const { currentUser, db, effectiveLibraryUserId } = getContext().var
   const { library } = db
 
-  const results = await library.select().from(romTable).where(eq(romTable.id, params.rom))
-  const [rom] = results
+  const [rom] = await library
+    .select()
+    .from(romTable)
+    .where(
+      and(
+        eq(romTable.id, params.rom),
+        eq(romTable.userId, effectiveLibraryUserId),
+        eq(romTable.status, statusEnum.normal),
+      ),
+    )
+    .limit(1)
+  if (!rom) {
+    throw new HTTPException(404, { message: 'ROM not found' })
+  }
 
   const [result] = await library
     .insert(launchRecordTable)
