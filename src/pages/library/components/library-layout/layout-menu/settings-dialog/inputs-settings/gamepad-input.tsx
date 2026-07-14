@@ -1,6 +1,7 @@
-import { Button, TextField } from '@radix-ui/themes'
+import { Button, Select, TextField } from '@radix-ui/themes'
 import { clsx } from 'clsx'
 import { type ReactNode, useEffect, useEffectEvent, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useGamepadMapping } from '#@/pages/library/hooks/use-gamepad-mapping.ts'
 import { useGamepads } from '#@/pages/library/hooks/use-gamepads.ts'
 import { usePreference } from '#@/pages/library/hooks/use-preference.ts'
@@ -11,11 +12,14 @@ interface GamepadInputProps {
     iconClass?: string
     iconNode?: ReactNode
     name: string
+    options?: readonly string[]
+    shortcutPart?: 'hotkey' | 'key'
     text?: string
   }
 }
 
 export function GamepadInput({ button }: Readonly<GamepadInputProps>) {
+  const { t } = useTranslation()
   const { gamepad } = useGamepads()
   if (!gamepad?.id) {
     throw new Error('this should not happen')
@@ -24,8 +28,8 @@ export function GamepadInput({ button }: Readonly<GamepadInputProps>) {
   const textField = useRef(null)
   const gamepadMapping = useGamepadMapping()
 
-  const value = gamepadMapping[button.name]
-  const disabled = button.name.startsWith('$')
+  const value = getValue(gamepadMapping, button.name, button.shortcutPart)
+  const disabled = button.name.startsWith('$') && !button.options
   const clearable = !disabled && Boolean(value)
 
   async function handleClickClear() {
@@ -34,7 +38,7 @@ export function GamepadInput({ button }: Readonly<GamepadInputProps>) {
         input: {
           gamepadMappings: {
             [gamepad.id]: {
-              ...gamepadMapping,
+              ...getPersistentMapping(gamepadMapping),
               [button.name]: null,
             },
           },
@@ -43,12 +47,30 @@ export function GamepadInput({ button }: Readonly<GamepadInputProps>) {
     }
   }
 
+  async function handleValueChange(value: string) {
+    if (!gamepad?.id || isLoading) {
+      return
+    }
+    await update({
+      input: {
+        gamepadMappings: {
+          [gamepad.id]: getUpdatedMapping(gamepadMapping, {
+            name: button.name,
+            shortcutPart: button.shortcutPart,
+            value: value === 'none' ? '' : value,
+          }),
+        },
+      },
+    })
+  }
+
   const handleGamepadPress = useEffectEvent(async (event: { button: number; gamepad: { id: string } }) => {
     if (textField.current !== document.activeElement || isLoading) {
       return
     }
-    const newMapping = { ...gamepadMapping, [button.name]: `${event.button}` }
-    const conflicts = Object.entries(gamepadMapping).filter(
+    const persistentMapping = getPersistentMapping(gamepadMapping)
+    const newMapping = { ...persistentMapping, [button.name]: `${event.button}` }
+    const conflicts = Object.entries(persistentMapping).filter(
       ([key, code]) => code === `${event.button}` && key !== button.name,
     )
     for (const [conflict] of conflicts) {
@@ -65,30 +87,105 @@ export function GamepadInput({ button }: Readonly<GamepadInputProps>) {
         {button.iconClass ? <span className={clsx('size-7', button.iconClass)} /> : button.iconNode}
       </div>
       <div>
-        <TextField.Root
-          className='w-28'
-          disabled={disabled}
-          inputMode='none'
-          onBeforeInput={(event) => event.preventDefault()}
-          onChange={(event) => event.preventDefault()}
-          onFocus={(event) => event.target.select()}
-          onKeyDown={(event) => event.preventDefault()}
-          readOnly={isLoading}
-          ref={textField}
-          size='2'
-          value={value ?? ''}
-        >
-          <TextField.Slot />
-          <TextField.Slot>
-            {clearable ? (
-              <Button className='-translate-x-1!' onClick={handleClickClear} size='1' title='Clear' variant='ghost'>
-                <span className='icon-[mdi--close]' />
-              </Button>
-            ) : null}
-          </TextField.Slot>
-        </TextField.Root>
+        {button.options ? (
+          <div>
+            <Select.Root onValueChange={handleValueChange} value={value || 'none'}>
+              <Select.Trigger disabled={isLoading} variant='surface' />
+              <Select.Content>
+                {button.options.map((option) => (
+                  <Select.Item key={option || 'none'} value={option || 'none'}>
+                    {option || t('common.disabled')}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+          </div>
+        ) : (
+          <TextField.Root
+            className='w-28'
+            disabled={disabled}
+            inputMode='none'
+            onBeforeInput={(event) => event.preventDefault()}
+            onChange={(event) => event.preventDefault()}
+            onFocus={(event) => event.target.select()}
+            onKeyDown={(event) => event.preventDefault()}
+            readOnly={isLoading}
+            ref={textField}
+            size='2'
+            value={value ?? ''}
+          >
+            <TextField.Slot />
+            <TextField.Slot>
+              {clearable ? (
+                <Button className='-translate-x-1!' onClick={handleClickClear} size='1' title='Clear' variant='ghost'>
+                  <span className='icon-[mdi--close]' />
+                </Button>
+              ) : null}
+            </TextField.Slot>
+          </TextField.Root>
+        )}
         {button.text ? <span className='absolute mt-0.5 ml-2 text-xs opacity-50'>{button.text}</span> : null}
       </div>
     </label>
   )
+}
+
+interface GamepadShortcutMapping {
+  $fast_forward: string
+  $pause: string
+  $rewind: string
+  [key: string]: unknown
+}
+
+function getValue(mapping: GamepadShortcutMapping, name: string, shortcutPart?: 'hotkey' | 'key') {
+  if (name === '$fast_forward' && shortcutPart === 'hotkey') {
+    return getShortcut(mapping.$fast_forward).hotkey
+  }
+  if ((name === '$fast_forward' || name === '$rewind') && shortcutPart === 'key') {
+    return getShortcut(mapping[name]).key
+  }
+  return typeof mapping[name] === 'string' ? mapping[name] : ''
+}
+
+function getUpdatedMapping(
+  mapping: GamepadShortcutMapping,
+  { name, shortcutPart, value }: { name: string; shortcutPart?: 'hotkey' | 'key'; value: string },
+) {
+  const persistentMapping = getPersistentMapping(mapping)
+  if (name === '$pause') {
+    return { ...persistentMapping, $pause: value }
+  }
+  const fastForward = getShortcut(mapping.$fast_forward)
+  const rewind = getShortcut(mapping.$rewind)
+  if (name === '$fast_forward' && shortcutPart === 'hotkey') {
+    return {
+      ...persistentMapping,
+      $fast_forward: formatShortcut(value, fastForward.key),
+      $rewind: formatShortcut(value, rewind.key),
+    }
+  }
+  return {
+    ...persistentMapping,
+    [name]: formatShortcut(name === '$fast_forward' ? fastForward.hotkey : rewind.hotkey, value),
+  }
+}
+
+function getPersistentMapping(mapping: GamepadShortcutMapping) {
+  const {
+    input_enable_hotkey: _inputEnableHotkey,
+    input_enable_hotkey_btn: _inputEnableHotkeyButton,
+    input_hold_fast_forward_btn: _inputHoldFastForwardButton,
+    input_rewind_btn: _inputRewindButton,
+    ...persistentMapping
+  } = mapping
+  return persistentMapping
+}
+
+function getShortcut(shortcut: string) {
+  const [key, hotkey] = shortcut.split(/\s+\+\s/u).toReversed()
+  return { hotkey: hotkey || '', key }
+}
+
+function formatShortcut(hotkey: string, key: string) {
+  return hotkey ? `${hotkey} + ${key}` : key
 }

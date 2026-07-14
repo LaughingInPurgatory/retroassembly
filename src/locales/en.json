@@ -169,6 +169,7 @@
   "emulator.importSave": "Import Save",
   "emulator.loadExternalState": "Load an external state",
   "emulator.pause": "Pause",
+  "emulator.hotkey": "Hotkey",
   "emulator.resetToDefaults": "Reset to defaults",
   "emulator.resetToDefaultsDescription": "Reset the emulator and it's option to defaults",
   "emulator.restart": "Restart",

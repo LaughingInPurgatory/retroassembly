@@ -3,10 +3,9 @@ import { useGamepads } from './use-gamepads.ts'
 import { usePreference } from './use-preference.ts'
 
 const defaultGamepadMapping = {
-  $fast_forward: 'Select + R2', // R2
+  $fast_forward: 'Select + R2',
   $pause: 'L1 + R1',
-  $rewind: 'Select + L2', // L2
-  input_enable_hotkey_btn: '8', // select
+  $rewind: 'Select + L2',
   input_player1_a_btn: '1',
   input_player1_b_btn: '0',
   input_player1_down_btn: '13',
@@ -41,11 +40,11 @@ export function useGamepadMapping() {
       Select: mapping.input_player1_select_btn,
       Start: mapping.input_player1_start_btn,
     }
-    const [hotkey, fastForwardKey] = mapping.$fast_forward.split(/\s+\+\s/u)
-    const [, rewindKey] = mapping.$rewind.split(/\s+\+\s/u)
+    const [fastForwardKey, fastForwardHotkey] = mapping.$fast_forward.split(/\s+\+\s/u).toReversed()
+    const [rewindKey] = mapping.$rewind.split(/\s+\+\s/u).toReversed()
     return {
       ...mapping,
-      input_enable_hotkey_btn: buttonNameMap[hotkey],
+      input_enable_hotkey_btn: buttonNameMap[fastForwardHotkey] || 'nul',
       input_hold_fast_forward_btn: buttonNameMap[fastForwardKey],
       input_rewind_btn: buttonNameMap[rewindKey],
     }

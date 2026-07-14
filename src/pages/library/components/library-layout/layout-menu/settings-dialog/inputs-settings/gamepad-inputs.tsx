@@ -1,4 +1,5 @@
 import { Callout, Card } from '@radix-ui/themes'
+import { clsx } from 'clsx'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ResolvedPreference } from '#@/constants/preference.ts'
@@ -13,8 +14,11 @@ interface ButtonGroup {
     iconClass?: string
     iconNode?: ReactNode
     name: keyof ResolvedPreference['input']['gamepadMappings'][string]
+    options?: readonly string[]
+    shortcutPart?: 'hotkey' | 'key'
     text?: string
   }[]
+  className?: string
   type: string
 }
 
@@ -98,10 +102,40 @@ export function GamepadInputs() {
     },
     {
       buttons: [
-        { iconClass: 'icon-[mdi--pause]', name: '$pause', text: t('emulator.pause') },
-        { iconClass: 'icon-[mdi--rewind]', name: '$rewind', text: t('emulator.rewind') },
-        { iconClass: 'icon-[mdi--fast-forward]', name: '$fast_forward', text: t('emulator.fastForward') },
+        {
+          iconClass: 'icon-[mdi--pause]',
+          name: '$pause',
+          options: ['L1 + R1', 'L2 + R2', 'L3 + R3', 'Select + Start', 'Down + Select', 'Down + Start'],
+          text: t('emulator.pause'),
+        },
       ],
+      type: 'pause',
+    },
+    {
+      buttons: [
+        {
+          iconClass: 'icon-[mdi--thunder]',
+          name: '$fast_forward',
+          options: ['', 'Select'],
+          shortcutPart: 'hotkey',
+          text: t('emulator.hotkey'),
+        },
+        {
+          iconClass: 'icon-[mdi--rewind]',
+          name: '$rewind',
+          options: ['L1', 'L2'],
+          shortcutPart: 'key',
+          text: t('emulator.rewind'),
+        },
+        {
+          iconClass: 'icon-[mdi--fast-forward]',
+          name: '$fast_forward',
+          options: ['R1', 'R2'],
+          shortcutPart: 'key',
+          text: t('emulator.fastForward'),
+        },
+      ],
+      className: 'mt-2',
       type: 'time',
     },
   ]
@@ -138,10 +172,10 @@ export function GamepadInputs() {
 
         {connected ? (
           <div className='flex flex-col gap-4 p-4'>
-            {buttonGroups.map(({ buttons, type }) => (
-              <div className='flex flex-col gap-4 lg:flex-row' key={type}>
+            {buttonGroups.map(({ buttons, type, className }) => (
+              <div className={clsx('flex flex-col gap-4 lg:flex-row', className)} key={type}>
                 {buttons.map((button) => (
-                  <GamepadInput button={button} key={button.name} />
+                  <GamepadInput button={button} key={`${button.name}-${button.shortcutPart || 'mapping'}`} />
                 ))}
               </div>
             ))}

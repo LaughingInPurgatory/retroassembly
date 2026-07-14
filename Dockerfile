@@ -1,5 +1,5 @@
-ARG BUILD_IMAGE=node:25.8.1-slim
-ARG PROD_IMAGE=node:25.8.1-alpine
+ARG BUILD_IMAGE=node:26.5.0-slim
+ARG PROD_IMAGE=node:26.5.0-alpine
 
 FROM ${BUILD_IMAGE} AS base
 WORKDIR /app

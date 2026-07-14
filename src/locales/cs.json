@@ -169,6 +169,7 @@
   "emulator.importSave": "Importovat uložení",
   "emulator.loadExternalState": "Načíst externí stav",
   "emulator.pause": "Pozastavit",
+  "emulator.hotkey": "Klávesová zkratka",
   "emulator.resetToDefaults": "Obnovit výchozí hodnoty",
   "emulator.resetToDefaultsDescription": "Resetovat emulátor a jeho nastavení na výchozí hodnoty",
   "emulator.restart": "Restartovat",

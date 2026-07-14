@@ -1,6 +1,7 @@
 import { capitalize, compact } from 'es-toolkit'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useGamepadMapping } from '#@/pages/library/hooks/use-gamepad-mapping.ts'
 import { useGamepads } from '#@/pages/library/hooks/use-gamepads.ts'
 import { useInputMapping } from '#@/pages/library/hooks/use-input-mapping.ts'
 import { GameInputMessageItem } from './game-input-message-item.tsx'
@@ -8,13 +9,14 @@ import { GameInputMessageItem } from './game-input-message-item.tsx'
 export function GameInputMessage() {
   const { t } = useTranslation()
   const { connected } = useGamepads()
+  const gamepadMapping = useGamepadMapping()
   const { keyboard: keyboardMapping } = useInputMapping()
 
   const messages: { keyNames: string[]; message: ReactNode }[] = connected
     ? [
-        { keyNames: ['L1', 'R1'], message: t('emulator.pause') },
-        { keyNames: ['Select', 'L2'], message: t('emulator.rewind') },
-        { keyNames: ['Select', 'R2'], message: t('emulator.fastForward') },
+        { keyNames: gamepadMapping.$pause.split(/\s+\+\s/u), message: t('emulator.pause') },
+        { keyNames: gamepadMapping.$rewind.split(/\s+\+\s/u), message: t('emulator.rewind') },
+        { keyNames: gamepadMapping.$fast_forward.split(/\s+\+\s/u), message: t('emulator.fastForward') },
       ]
     : [
         {
