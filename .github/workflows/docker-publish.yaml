@@ -13,9 +13,12 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    environment:
+      name: retro1
     permissions:
       contents: read
       packages: write
+      deployments: write
 
     steps:
       - uses: actions/checkout@v6
