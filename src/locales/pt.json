@@ -169,7 +169,7 @@
   "emulator.importSave": "Importar save",
   "emulator.loadExternalState": "Carregar um estado externo",
   "emulator.pause": "Pausar",
-  "emulator.hotkey": "Tecla de atalho",
+  "emulator.prefix": "Prefixo",
   "emulator.resetToDefaults": "Resetar para padrões",
   "emulator.resetToDefaultsDescription": "Resetar o emulador e suas opções para os padrões",
   "emulator.restart": "Reiniciar",

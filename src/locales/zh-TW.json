@@ -169,7 +169,7 @@
   "emulator.importSave": "匯入存檔",
   "emulator.loadExternalState": "載入外部狀態",
   "emulator.pause": "暫停",
-  "emulator.hotkey": "快速鍵",
+  "emulator.prefix": "前綴",
   "emulator.resetToDefaults": "重設為預設值",
   "emulator.resetToDefaultsDescription": "將模擬器及其選項重設為預設值",
   "emulator.restart": "重新啟動",

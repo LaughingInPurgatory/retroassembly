@@ -13,7 +13,7 @@ interface GamepadInputProps {
     iconNode?: ReactNode
     name: string
     options?: readonly string[]
-    shortcutPart?: 'hotkey' | 'key'
+    shortcutPart?: 'key' | 'prefix'
     text?: string
   }
 }
@@ -29,6 +29,7 @@ export function GamepadInput({ button }: Readonly<GamepadInputProps>) {
   const gamepadMapping = useGamepadMapping()
 
   const value = getValue(gamepadMapping, button.name, button.shortcutPart)
+  const options = getOptions(gamepadMapping, button)
   const disabled = button.name.startsWith('$') && !button.options
   const clearable = !disabled && Boolean(value)
 
@@ -92,7 +93,7 @@ export function GamepadInput({ button }: Readonly<GamepadInputProps>) {
             <Select.Root onValueChange={handleValueChange} value={value || 'none'}>
               <Select.Trigger disabled={isLoading} variant='surface' />
               <Select.Content>
-                {button.options.map((option) => (
+                {options.map((option) => (
                   <Select.Item key={option || 'none'} value={option || 'none'}>
                     {option || t('common.disabled')}
                   </Select.Item>
@@ -137,19 +138,30 @@ interface GamepadShortcutMapping {
   [key: string]: unknown
 }
 
-function getValue(mapping: GamepadShortcutMapping, name: string, shortcutPart?: 'hotkey' | 'key') {
-  if (name === '$fast_forward' && shortcutPart === 'hotkey') {
-    return getShortcut(mapping.$fast_forward).hotkey
+function getValue(mapping: GamepadShortcutMapping, name: string, shortcutPart?: 'key' | 'prefix') {
+  if (name === '$fast_forward' && shortcutPart === 'prefix') {
+    return getShortcut(mapping.$fast_forward).prefix
   }
   if ((name === '$fast_forward' || name === '$rewind') && shortcutPart === 'key') {
-    return getShortcut(mapping[name]).key
+    return formatShortcut(getShortcut(mapping.$fast_forward).prefix, getShortcut(mapping[name]).key)
   }
   return typeof mapping[name] === 'string' ? mapping[name] : ''
 }
 
+function getOptions(
+  mapping: GamepadShortcutMapping,
+  { options = [], shortcutPart }: Pick<GamepadInputProps['button'], 'options' | 'shortcutPart'>,
+) {
+  if (shortcutPart !== 'key') {
+    return options
+  }
+  const { prefix } = getShortcut(mapping.$fast_forward)
+  return options.map((option) => formatShortcut(prefix, option))
+}
+
 function getUpdatedMapping(
   mapping: GamepadShortcutMapping,
-  { name, shortcutPart, value }: { name: string; shortcutPart?: 'hotkey' | 'key'; value: string },
+  { name, shortcutPart, value }: { name: string; shortcutPart?: 'key' | 'prefix'; value: string },
 ) {
   const persistentMapping = getPersistentMapping(mapping)
   if (name === '$pause') {
@@ -157,7 +169,7 @@ function getUpdatedMapping(
   }
   const fastForward = getShortcut(mapping.$fast_forward)
   const rewind = getShortcut(mapping.$rewind)
-  if (name === '$fast_forward' && shortcutPart === 'hotkey') {
+  if (name === '$fast_forward' && shortcutPart === 'prefix') {
     return {
       ...persistentMapping,
       $fast_forward: formatShortcut(value, fastForward.key),
@@ -166,7 +178,7 @@ function getUpdatedMapping(
   }
   return {
     ...persistentMapping,
-    [name]: formatShortcut(name === '$fast_forward' ? fastForward.hotkey : rewind.hotkey, value),
+    [name]: formatShortcut(name === '$fast_forward' ? fastForward.prefix : rewind.prefix, getShortcut(value).key),
   }
 }
 
@@ -182,10 +194,10 @@ function getPersistentMapping(mapping: GamepadShortcutMapping) {
 }
 
 function getShortcut(shortcut: string) {
-  const [key, hotkey] = shortcut.split(/\s+\+\s/u).toReversed()
-  return { hotkey: hotkey || '', key }
+  const [key, prefix] = shortcut.split(/\s+\+\s/u).toReversed()
+  return { key, prefix: prefix || '' }
 }
 
-function formatShortcut(hotkey: string, key: string) {
-  return hotkey ? `${hotkey} + ${key}` : key
+function formatShortcut(prefix: string, key: string) {
+  return prefix ? `${prefix} + ${key}` : key
 }

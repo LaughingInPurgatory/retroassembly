@@ -29,6 +29,7 @@ export function GameOverlay() {
   const handleGamepadPress = useEffectEvent(async (event: { gamepad: Gamepad; button: number }) => {
     const { buttons } = event.gamepad
     const buttonNameMap = {
+      Down: gamepadMapping.input_player1_down_btn,
       L1: gamepadMapping.input_player1_l1_btn,
       L2: gamepadMapping.input_player1_l2_btn,
       L3: gamepadMapping.input_player1_l3_btn,

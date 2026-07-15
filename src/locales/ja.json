@@ -169,7 +169,7 @@
   "emulator.importSave": "セーブをインポート",
   "emulator.loadExternalState": "外部ステートを読み込む",
   "emulator.pause": "一時停止",
-  "emulator.hotkey": "ホットキー",
+  "emulator.prefix": "プレフィックス",
   "emulator.resetToDefaults": "デフォルトに戻す",
   "emulator.resetToDefaultsDescription": "エミュレーターとそのオプションをデフォルトにリセット",
   "emulator.restart": "再起動",

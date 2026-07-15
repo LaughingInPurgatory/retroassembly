@@ -40,11 +40,11 @@ export function useGamepadMapping() {
       Select: mapping.input_player1_select_btn,
       Start: mapping.input_player1_start_btn,
     }
-    const [fastForwardKey, fastForwardHotkey] = mapping.$fast_forward.split(/\s+\+\s/u).toReversed()
+    const [fastForwardKey, fastForwardPrefix] = mapping.$fast_forward.split(/\s+\+\s/u).toReversed()
     const [rewindKey] = mapping.$rewind.split(/\s+\+\s/u).toReversed()
     return {
       ...mapping,
-      input_enable_hotkey_btn: buttonNameMap[fastForwardHotkey] || 'nul',
+      input_enable_hotkey_btn: buttonNameMap[fastForwardPrefix] || 'nul',
       input_hold_fast_forward_btn: buttonNameMap[fastForwardKey],
       input_rewind_btn: buttonNameMap[rewindKey],
     }

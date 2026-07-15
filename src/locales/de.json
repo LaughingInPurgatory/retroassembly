@@ -169,7 +169,7 @@
   "emulator.importSave": "Spielstand importieren",
   "emulator.loadExternalState": "Externen Zustand laden",
   "emulator.pause": "Pause",
-  "emulator.hotkey": "Hotkey",
+  "emulator.prefix": "Präfix",
   "emulator.resetToDefaults": "Auf Standardwerte zurücksetzen",
   "emulator.resetToDefaultsDescription": "Emulator und seine Optionen auf Standardwerte zurücksetzen",
   "emulator.restart": "Neustart",

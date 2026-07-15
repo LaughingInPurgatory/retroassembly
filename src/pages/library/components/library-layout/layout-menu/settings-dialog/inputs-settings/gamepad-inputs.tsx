@@ -15,7 +15,7 @@ interface ButtonGroup {
     iconNode?: ReactNode
     name: keyof ResolvedPreference['input']['gamepadMappings'][string]
     options?: readonly string[]
-    shortcutPart?: 'hotkey' | 'key'
+    shortcutPart?: 'key' | 'prefix'
     text?: string
   }[]
   className?: string
@@ -117,8 +117,8 @@ export function GamepadInputs() {
           iconClass: 'icon-[mdi--thunder]',
           name: '$fast_forward',
           options: ['', 'Select'],
-          shortcutPart: 'hotkey',
-          text: t('emulator.hotkey'),
+          shortcutPart: 'prefix',
+          text: t('emulator.prefix'),
         },
         {
           iconClass: 'icon-[mdi--rewind]',

@@ -169,7 +169,7 @@
   "emulator.importSave": "세이브 가져오기",
   "emulator.loadExternalState": "외부 상태 불러오기",
   "emulator.pause": "일시정지",
-  "emulator.hotkey": "단축키",
+  "emulator.prefix": "접두사",
   "emulator.resetToDefaults": "기본값으로 재설정",
   "emulator.resetToDefaultsDescription": "에뮬레이터와 옵션을 기본값으로 재설정",
   "emulator.restart": "다시 시작",
