@@ -13,7 +13,6 @@ import {
   useSpatialNavigationPaused,
 } from '#@/pages/library/atoms.ts'
 import { useIsDemo } from '#@/pages/library/hooks/use-demo.ts'
-import { useGamepadMapping } from '#@/pages/library/hooks/use-gamepad-mapping.ts'
 import { useRom } from '#@/pages/library/hooks/use-rom.ts'
 import { useRouter } from '#@/pages/library/hooks/use-router.ts'
 import { getFileUrl } from '#@/pages/library/utils/file.ts'
@@ -22,6 +21,7 @@ import type { loader } from '#@/pages/routes/library-platform-rom.tsx'
 import { getCDNUrl } from '#@/utils/isomorphic/cdn.ts'
 import { getGlobalCSSVars } from '#@/utils/isomorphic/misc.ts'
 import { usePreference } from '../../../hooks/use-preference.ts'
+import { useEmulatorGamepadMapping } from '../emulator-session-provider.tsx'
 import { useJaguarNumpad } from './use-jaguar-numpad.ts'
 
 type NostalgistOption = Parameters<typeof Nostalgist.prepare>[0]
@@ -95,7 +95,7 @@ export function useEmulator() {
   const rom: Rom = useRom()
   const { state } = useLoaderData<typeof loader>()
   const { preference } = usePreference()
-  const gamepadMapping = useGamepadMapping()
+  const emulatorGamepadMapping = useEmulatorGamepadMapping()
   const [launched, setLaunched] = useEmulatorLaunched()
   const isDemo = useIsDemo()
   const { reload } = useRouter()
@@ -125,7 +125,7 @@ export function useEmulator() {
       retroarchConfig: {
         ...defaultRetroarchConfig,
         ...preference.input.keyboardMapping,
-        ...gamepadMapping,
+        ...emulatorGamepadMapping,
         // this might be a bug of retroarch's emscripten build, y plus and y minus are swapped
         input_player1_l_y_minus: preference.input.keyboardMapping.input_player1_l_y_plus,
         input_player1_l_y_plus: preference.input.keyboardMapping.input_player1_l_y_minus,
@@ -140,7 +140,7 @@ export function useEmulator() {
       shader,
       state: state?.fileId ? getFileUrl(state.fileId) : undefined,
     }),
-    [romObject, bios, core, preference, gamepadMapping, shader, state?.fileId],
+    [romObject, bios, core, preference, emulatorGamepadMapping, shader, state?.fileId],
   )
 
   const {
@@ -149,7 +149,6 @@ export function useEmulator() {
     isValidating,
     mutate: prepare,
   } = useSWRImmutable(options, () => Nostalgist.prepare(options))
-  globalThis.emulator = emulator
 
   // Jaguar keypad lives on RETRO_DEVICE_KEYBOARD (0-9, -, =). Map PC numpad onto those
   // keys while this core is running: numpad digits → 0-9, * → *, - → #.

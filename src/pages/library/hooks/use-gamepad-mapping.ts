@@ -51,3 +51,5 @@ export function useGamepadMapping() {
   }, [userGamepadMapping])
   return gamepadMapping
 }
+
+export type GamepadMapping = ReturnType<typeof useGamepadMapping>
