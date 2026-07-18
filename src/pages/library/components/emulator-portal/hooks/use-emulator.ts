@@ -88,7 +88,6 @@ const defaultRetroarchConfig: RetroarchConfig = {
   video_viewport_bias_y: 0.1,
 }
 
-const nativeConsoleError = console.error
 let noSleep: NoSleep
 const originalGetUserMedia = globalThis.navigator?.mediaDevices?.getUserMedia?.bind(globalThis.navigator.mediaDevices)
 export function useEmulator() {
@@ -129,7 +128,8 @@ export function useEmulator() {
         // this might be a bug of retroarch's emscripten build, y plus and y minus are swapped
         input_player1_l_y_minus: preference.input.keyboardMapping.input_player1_l_y_plus,
         input_player1_l_y_plus: preference.input.keyboardMapping.input_player1_l_y_minus,
-        rewind_enable: !['mupen64plus_next'].includes(core) && !isKeyboardCore(core),
+        rewind_buffer_size: ['mupen64plus_next', 'pcsx_rearmed'].includes(core) ? 100 : 20,
+        rewind_enable: true,
         run_ahead_enabled: !['mupen64plus_next', 'pcsx_rearmed'].includes(core) && !isKeyboardCore(core),
         video_smooth: preference.emulator.videoSmooth,
         // Applied last so typing works for computer cores (VICE / Fuse / Cap32).
@@ -161,7 +161,6 @@ export function useEmulator() {
       return
     }
 
-    console.error = noop
     if (!withState) {
       emulator.getEmulator().on('beforeLaunch', () => {
         try {
@@ -229,7 +228,6 @@ export function useEmulator() {
   }
 
   async function exit({ reloadAfterExit = false } = {}) {
-    console.error = nativeConsoleError
     const status = emulator?.getStatus() || ''
     if (['paused', 'running'].includes(status)) {
       emulator?.exit()

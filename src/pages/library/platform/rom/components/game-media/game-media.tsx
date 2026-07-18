@@ -1,6 +1,8 @@
 import { ScrollArea } from '@radix-ui/themes'
 import { attemptAsync } from 'es-toolkit'
 import { useCallback, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
+import scrollIntoView from 'smooth-scroll-into-view-if-needed'
 import useSWRImmutable from 'swr/immutable'
 import { useRom } from '#@/pages/library/hooks/use-rom.ts'
 import { getFileUrl } from '#@/pages/library/utils/file.ts'
@@ -88,7 +90,14 @@ export function GameMedia() {
     }
   }, [])
 
-  const handleClose = useCallback((_currentIndex: number) => {
+  const handleClose = useCallback((currentIndex: number) => {
+    const el = thumbRefs.current.get(currentIndex)
+    if (el) {
+      scrollIntoView(el, { behavior: 'instant', block: 'nearest', scrollMode: 'if-needed' })
+      flushSync(() => {
+        setOriginRect(el.getBoundingClientRect())
+      })
+    }
     setCarouselOpen(false)
   }, [])
 
