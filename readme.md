@@ -185,9 +185,9 @@ pnpm test         # Playwright e2e
 Release / image (fork only — never push to upstream):
 
 ```sh
-# commit + push origin main, then tag (example scheme v6.yymmdd.HHMM)
-git tag v6.yymmdd.HHMM
-git push origin v6.yymmdd.HHMM   # triggers Build and Push Docker Image → GHCR
+# commit + push origin main, then tag (example scheme v7.yymmdd.HHMM)
+git tag v7.yymmdd.HHMM
+git push origin v7.yymmdd.HHMM   # triggers Build and Push Docker Image → GHCR
 ```
 
 ## Contributing

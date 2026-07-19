@@ -75,7 +75,7 @@ Escape still opens the in-game overlay. Gamepad button maps are unchanged.
 **Release (fork only)**:
 
 1. Commit + `git push origin <branch>`
-2. Tag `v6.yymmdd.HHMM` (UTC), `git push origin <tag>`
+2. Tag `v7.yymmdd.HHMM` (UTC), `git push origin <tag>`
 3. Docker workflow publishes `ghcr.io/laughinginpurgatory/retroassembly:<tag>` and `:latest`
 4. Optional: `gh release create` on `LaughingInPurgatory/retroassembly`
 
