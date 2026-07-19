@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 
 function getTag() {
   const now = DateTime.now().setZone('utc')
-  const major = '6'
+  const major = '7'
   const minor = now.toFormat('yyMMdd')
   const patch = now.toFormat('HHmm')
   let version = `${major}.${minor}.${patch}`
