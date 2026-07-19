@@ -23,9 +23,9 @@ export const mupen64plusNextOptions: CoreOption[] = [
   },
   // CPU Core
   {
-    defaultOption: 'dynamic_recompiler',
+    defaultOption: 'cached_interpreter',
     name: 'mupen64plus-cpucore',
-    options: ['pure_interpreter', 'cached_interpreter', 'dynamic_recompiler'],
+    options: ['pure_interpreter', 'cached_interpreter'],
     title: 'CPU Core',
   },
   // GLideN64 - Resolution

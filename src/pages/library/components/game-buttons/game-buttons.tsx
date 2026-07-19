@@ -23,9 +23,21 @@ const isAppleMobileDesktopMode =
 const mayNeedsUserInteraction = isAppleMobile || isAppleMobileDesktopMode
 
 export function GameButtons() {
+  const { rom } = useLoaderData()
+  const { t } = useTranslation()
+
+  const platformName = t(platformMap[rom.platform].displayNameI18nKey)
+
   return (
     <EmulatorSessionProvider>
-      <GameButtonsContent />
+      <div>
+        <GameButtonsContent />
+        {['psx', 'n64'].includes(rom.platform) ? (
+          <div className='mt-1 text-sm opacity-60'>
+            {t('platform.emulationExperimental', { platform: platformName })}
+          </div>
+        ) : null}
+      </div>
     </EmulatorSessionProvider>
   )
 }
