@@ -72,7 +72,7 @@ export default function LibraryLayout({ children }: Readonly<PropsWithChildren>)
             <SidebarLinks />
           </ScrollArea>
           {isDemo ? null : (
-            <div className='flex items-center justify-between border-t border-t-white/30 py-2'>
+            <div className='flex items-center justify-between border-t border-t-(--gray-a5) py-2'>
               {isLargeScreen ? <LayoutMenu /> : null}
               {isSponsorMessageVisible ? <SponsorMessage /> : null}
             </div>
@@ -81,7 +81,7 @@ export default function LibraryLayout({ children }: Readonly<PropsWithChildren>)
 
         <LayoutMain>{children}</LayoutMain>
 
-        <div className='top-0 right-0 left-72 z-11 hidden h-4 bg-(--accent-9) lg:fixed lg:block' />
+        <div className='top-0 right-0 left-80 z-11 hidden h-4 bg-(--accent-9) lg:fixed lg:block' />
         <div className='inset-y-0 right-0 z-11 hidden h-full w-4 bg-(--accent-9) lg:fixed lg:block' />
         <StatusBar />
       </div>

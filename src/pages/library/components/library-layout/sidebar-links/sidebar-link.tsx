@@ -27,8 +27,8 @@ export function SidebarLink({ active, children, title, to }) {
         <NavigatableLink
           className={clsx('sidebar-link', 'group m-0! flex! h-auto! py-2.5!', {
             active,
-            'bg-black/50! font-semibold! text-white!': active,
-            'text-white! hover:bg-inherit!': !active,
+            'bg-(--accent-a4)! font-semibold! text-(--color-text)!': active,
+            'text-(--color-text)! hover:bg-(--accent-a3)!': !active,
           })}
           data-sn-focus-style={JSON.stringify({
             backgroundColor: 'rgba(0, 0, 0, 0.2)',

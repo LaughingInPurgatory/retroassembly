@@ -28,14 +28,14 @@ export function LayoutHeader() {
 
   return (
     <>
-      <header className='px-safe-offset-2 fixed inset-x-0 top-0 z-2 flex items-center bg-(--accent-9) py-2 lg:hidden'>
+      <header className='px-safe-offset-2 fixed inset-x-0 top-0 z-2 flex items-center border-b border-(--gray-a4) bg-(--color-panel-translucent) py-2 text-(--color-text) [backdrop-filter:var(--backdrop-filter-panel)] lg:hidden'>
         <Link className='flex items-center gap-2 font-bold' reloadDocument to={getHomePath(language)}>
           <Logo height='32' width='32' />
         </Link>
 
         <div className='flex h-5 flex-1 justify-center'>
           <Select.Root onValueChange={handleValueChange} size='2' value={currentRouteName}>
-            <Select.Trigger className='text-white!' variant='ghost'>
+            <Select.Trigger className='text-(--color-text)!' variant='ghost'>
               <HeaderLinkItem link={currentLink} />
             </Select.Trigger>
             <Select.Content>
